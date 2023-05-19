@@ -137,7 +137,6 @@ object TestUtils {
 
   fun withTestProject(name: String, testDir: String? = null, block: (File) -> Unit) = withDirectory(testDir) { dir ->
     File(System.getProperty("user.dir"), "testProjects/$name").copyRecursively(dir, overwrite = true)
-
     block(dir)
   }
 
@@ -179,9 +178,12 @@ object TestUtils {
         // Runs in-process, saves a bit of time
         .withDebug(true)
         .withArguments(
-            "-g",
-            // Reuse the main build home directory
-            File(System.getenv("HOME")).resolve(".gradle").absolutePath,
+//            "-g",
+//            // Reuse the main build home directory
+//            File(System.getenv("HOME")).resolve(".gradle").absolutePath,
+            "--scan",
+            "-Dcom.gradle.scan.server=https://ge.solutions-team.gradle.com",
+            "-Dscan.capture-task-input-files",
             "--stacktrace",
             *args
         )
