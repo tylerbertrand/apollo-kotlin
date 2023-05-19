@@ -2,8 +2,7 @@
 def isCI = System.getenv("CI") != null
 
 gradleEnterprise {
-  server = "https://ge.apollographql.com"
-  allowUntrustedServer = false
+  server = "https://ge.solutions-team.gradle.com"
 
   buildScan {
     publishAlways()
@@ -22,9 +21,5 @@ buildCache {
   local {
     enabled = true
     push = true
-  }
-  remote(gradleEnterprise.buildCache) {
-    enabled = true
-    push = isCI
   }
 }
