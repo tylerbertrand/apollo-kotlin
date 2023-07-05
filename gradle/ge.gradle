@@ -2,7 +2,7 @@
 def isCI = System.getenv("CI") != null
 
 gradleEnterprise {
-  server = "https://ge.apollographql.com"
+  server = "https://ge.solutions-team.gradle.com"
   allowUntrustedServer = false
 
   buildScan {
