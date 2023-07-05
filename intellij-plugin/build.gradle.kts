@@ -1,6 +1,8 @@
+import com.gradle.enterprise.gradleplugin.GradleEnterpriseExtension
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.changelog.markdownToHTML
+import org.jetbrains.intellij.tasks.InstrumentCodeTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URL
 
@@ -215,3 +217,8 @@ dependencies {
 }
 
 fun isSnapshotBuild() = System.getenv("COM_APOLLOGRAPHQL_IJ_PLUGIN_SNAPSHOT").toBoolean()
+
+rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
+    "ideaDependency",
+    tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().getFqn()
+)
