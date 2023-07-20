@@ -222,3 +222,13 @@ rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
     "ideaDependency",
     tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().getFqn()
 )
+
+rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
+    "ideaDependency.toString",
+    tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().toString()
+)
+
+rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
+    "ideaDependency.hashCode",
+    tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().hashCode().toString()
+)
