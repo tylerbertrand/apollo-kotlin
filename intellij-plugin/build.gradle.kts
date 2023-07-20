@@ -233,3 +233,18 @@ rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
     "ideaDependency.hashCode",
     tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().hashCode().toString()
 )
+
+rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
+    "ideaDependency.name",
+    tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().name
+)
+
+rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
+    "ideaDependency.version",
+    tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().version
+)
+
+rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
+    "ideaDependency.buildNumber",
+    tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().buildNumber
+)
