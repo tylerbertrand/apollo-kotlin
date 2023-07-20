@@ -42,6 +42,7 @@ intellij {
   // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
   plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
 
+  downloadSources.set(false)
   // Uncomment to use a local repository e.g. for testing not yet published versions of the GraphQL plugin
   // pluginsRepositories {
   //   maven("file://${System.getProperty("user.home")}/.m2/repository")
