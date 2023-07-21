@@ -248,3 +248,6 @@ rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
     "ideaDependency.buildNumber",
     tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().buildNumber
 )
+
+tasks.withType<org.jetbrains.intellij.tasks.InstrumentCodeTask>().configureEach { outputs.doNotCacheIf("ideaDependency input is improperly configured") { true } }
+tasks.withType<org.jetbrains.intellij.tasks.BuildPluginTask>().configureEach { outputs.doNotCacheIf("buildPlugin should not be cacheable as it is a Zip task") { true } }
