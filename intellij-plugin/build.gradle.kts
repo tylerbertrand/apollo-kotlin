@@ -248,13 +248,17 @@ rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
 )
 
 val objectMapper = ObjectMapper()
+val serializedIdeaDependency: String = objectMapper.writeValueAsString(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
+val serializedIdeaDependencyBytes: ByteArray = objectMapper.writeValueAsBytes(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
 rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
- "ideaDependency.serialized", objectMapper.writeValueAsString(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
+    "ideaDependency.serialized", objectMapper.writeValueAsString(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
 )
-
-val serializedIdeaDependency = objectMapper.writeValueAsString(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
+rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
+    "ideaDependency.serializedBytes", String(serializedIdeaDependencyBytes)
+)
 println("--------------------------------")
 println(serializedIdeaDependency)
+println(String(serializedIdeaDependencyBytes))
 println("--------------------------------")
 
 rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
