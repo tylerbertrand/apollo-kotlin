@@ -163,4 +163,4 @@ tasks.register("rmbuild") {
   }
 }
 
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach { outputs.doNotCacheIf("https://github.com/Kotlin/dokka/issues/2978") { true } }
+subprojects { tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach { outputs.doNotCacheIf("https://github.com/Kotlin/dokka/issues/2978") { true } } }

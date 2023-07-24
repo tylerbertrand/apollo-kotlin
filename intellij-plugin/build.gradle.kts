@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.gradle.enterprise.gradleplugin.GradleEnterpriseExtension
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
@@ -224,6 +225,8 @@ rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
     tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().getFqn()
 )
 
+
+
 rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
     "ideaDependency.toString",
     tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().toString()
@@ -244,10 +247,19 @@ rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
     tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().version
 )
 
+val objectMapper = ObjectMapper()
+rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
+ "ideaDependency.serialized", objectMapper.writeValueAsString(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
+)
+
+val serializedIdeaDependency = objectMapper.writeValueAsString(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
+println("--------------------------------")
+println(serializedIdeaDependency)
+println("--------------------------------")
+
 rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
     "ideaDependency.buildNumber",
     tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().buildNumber
 )
 
-tasks.withType<org.jetbrains.intellij.tasks.InstrumentCodeTask>().configureEach { outputs.doNotCacheIf("ideaDependency input is improperly configured") { true } }
 tasks.withType<org.jetbrains.intellij.tasks.BuildPluginTask>().configureEach { outputs.doNotCacheIf("buildPlugin should not be cacheable as it is a Zip task") { true } }
