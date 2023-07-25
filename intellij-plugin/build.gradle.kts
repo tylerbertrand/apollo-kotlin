@@ -3,9 +3,14 @@ import com.gradle.enterprise.gradleplugin.GradleEnterpriseExtension
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.changelog.markdownToHTML
+import org.jetbrains.intellij.dependency.IdeaDependency
 import org.jetbrains.intellij.tasks.InstrumentCodeTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URL
+
+import java.io.ObjectOutputStream
+import java.io.ByteArrayOutputStream
+import java.nio.charset.Charset
 
 fun properties(key: String) = project.findProperty(key).toString()
 
@@ -250,16 +255,31 @@ rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
 val objectMapper = ObjectMapper()
 val serializedIdeaDependency: String = objectMapper.writeValueAsString(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
 val serializedIdeaDependencyBytes: ByteArray = objectMapper.writeValueAsBytes(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
+
+
+val ideaDependency: IdeaDependency = tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get()
+val baos = ByteArrayOutputStream()
+val os = ObjectOutputStream(baos)
+os.writeObject(ideaDependency)
+val byteArray: ByteArray = baos.toByteArray()
+val stringByteArray = String(byteArray)
+println("--------------------------------")
+println(serializedIdeaDependency)
+println(String(serializedIdeaDependencyBytes))
+
+println("String Byte Array: $stringByteArray")
+println("--------------------------------")
+
+
+
 rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
     "ideaDependency.serialized", objectMapper.writeValueAsString(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
 )
 rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
-    "ideaDependency.serializedBytes", String(serializedIdeaDependencyBytes)
+    "ideaDependency.serializedBytes", stringByteArray
 )
-println("--------------------------------")
-println(serializedIdeaDependency)
-println(String(serializedIdeaDependencyBytes))
-println("--------------------------------")
+
+
 
 rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
     "ideaDependency.buildNumber",
