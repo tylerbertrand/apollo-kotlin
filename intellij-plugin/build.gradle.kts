@@ -1,5 +1,7 @@
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.gradle.enterprise.gradleplugin.GradleEnterpriseExtension
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.changelog.markdownToHTML
@@ -247,18 +249,17 @@ rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
     tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get().version
 )
 
-val objectMapper = ObjectMapper()
-val serializedIdeaDependency: String = objectMapper.writeValueAsString(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
-val serializedIdeaDependencyBytes: ByteArray = objectMapper.writeValueAsBytes(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
+val serializedIdeaDependency: String = Json.encodeToString(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
+//val serializedIdeaDependencyBytes: ByteArray = objectMapper.writeValueAsBytes(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
 rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
-    "ideaDependency.serialized", objectMapper.writeValueAsString(tasks.getByName<InstrumentCodeTask>("instrumentCode").ideaDependency.get())
+    "ideaDependency.serialized", serializedIdeaDependency
 )
-rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
-    "ideaDependency.serializedBytes", String(serializedIdeaDependencyBytes)
-)
+//rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
+//    "ideaDependency.serializedBytes", String(serializedIdeaDependencyBytes)
+//)
 println("--------------------------------")
 println(serializedIdeaDependency)
-println(String(serializedIdeaDependencyBytes))
+//println(String(serializedIdeaDependencyBytes))
 println("--------------------------------")
 
 rootProject.extensions.getByType<GradleEnterpriseExtension>().buildScan.value(
