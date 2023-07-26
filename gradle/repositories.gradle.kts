@@ -3,6 +3,9 @@ listOf(pluginManagement.repositories, dependencyResolutionManagement.repositorie
     // Uncomment this one to use the Kotlin "dev" repository
     // maven { url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev/") }
     mavenCentral()
+    mavenLocal()
+    gradlePluginPortal()
+    google()
 
     exclusiveContent {
       forRepository(::google)
@@ -13,27 +16,27 @@ listOf(pluginManagement.repositories, dependencyResolutionManagement.repositorie
       }
     }
 
-    exclusiveContent {
-      forRepository(::gradlePluginPortal)
-      filter {
-        includeModule("org.gradle.kotlin.embedded-kotlin", "org.gradle.kotlin.embedded-kotlin.gradle.plugin")
-        includeModule("org.gradle.kotlin", "gradle-kotlin-dsl-plugins")
-        includeModule("me.champeau.gradle", "japicmp-gradle-plugin")
-        includeModule("org.jetbrains.kotlinx", "kotlinx-benchmark-plugin")
-        includeModule("com.gradle.publish", "plugin-publish-plugin")
-        includeModule("com.github.ben-manes", "gradle-versions-plugin")
-        includeModule("com.gradle", "gradle-enterprise-gradle-plugin")
-
-        // For org.jetbrains.intellij
-        includeModule("org.jetbrains.intellij", "org.jetbrains.intellij.gradle.plugin")
-        includeModule("org.jetbrains.intellij.plugins", "gradle-intellij-plugin")
-        includeModule("gradle.plugin.org.jetbrains.gradle.plugin.idea-ext", "gradle-idea-ext")
-
-        // For org.jetbrains.changelog
-        includeModule("org.jetbrains.changelog", "org.jetbrains.changelog.gradle.plugin")
-        includeModule("org.jetbrains.intellij.plugins", "gradle-changelog-plugin")
-      }
-    }
+//    exclusiveContent {
+//      forRepository(::gradlePluginPortal)
+//      filter {
+//        includeModule("org.gradle.kotlin.embedded-kotlin", "org.gradle.kotlin.embedded-kotlin.gradle.plugin")
+//        includeModule("org.gradle.kotlin", "gradle-kotlin-dsl-plugins")
+//        includeModule("me.champeau.gradle", "japicmp-gradle-plugin")
+//        includeModule("org.jetbrains.kotlinx", "kotlinx-benchmark-plugin")
+//        includeModule("com.gradle.publish", "plugin-publish-plugin")
+//        includeModule("com.github.ben-manes", "gradle-versions-plugin")
+//        includeModule("com.gradle", "gradle-enterprise-gradle-plugin")
+//
+//        // For org.jetbrains.intellij
+//        includeModule("org.jetbrains.intellij", "org.jetbrains.intellij.gradle.plugin")
+//        includeModule("org.jetbrains.intellij.plugins", "gradle-intellij-plugin")
+//        includeModule("gradle.plugin.org.jetbrains.gradle.plugin.idea-ext", "gradle-idea-ext")
+//
+//        // For org.jetbrains.changelog
+//        includeModule("org.jetbrains.changelog", "org.jetbrains.changelog.gradle.plugin")
+//        includeModule("org.jetbrains.intellij.plugins", "gradle-changelog-plugin")
+//      }
+//    }
 
     exclusiveContent {
       @Suppress("DEPRECATION")
