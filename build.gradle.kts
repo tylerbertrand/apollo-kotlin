@@ -66,7 +66,7 @@ tasks.register("ciTestsGradle") {
 }
 
 tasks.register("ciTestsNoGradle") {
-  description = """Execute all tests from the root project except: 
+  description = """Execute all tests from the root project except:
     | - the Gradle ones
     | - most of the Apple tests. Instead it just executes macosX64 tests to save time
     | - the IntelliJ plugin tests - they are run in a dedicated job
@@ -162,3 +162,5 @@ tasks.register("rmbuild") {
     }.count()
   }
 }
+
+subprojects { tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach { outputs.doNotCacheIf("https://github.com/Kotlin/dokka/issues/2978") { true } } }
